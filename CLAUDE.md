@@ -6,23 +6,25 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Static HTML/CSS portfolio website deployed to AWS using S3 and CloudFront, provisioned with Terraform, and automated via GitHub Actions.
 
-## Structure
+## Architecture
 
-- `index.html` — single-page site; sections are anchored by id (`home`, `about`, `services`, `courses`, `book`, `community`, `contact`) and linked from the nav. Pure HTML5 and CSS3. No JavaScript. No build step. No framework.Font Awesome is loaded from cdnjs for icons.
-- `style.css` — all styling for `index.html`. Responsive rules are written per-component (media queries at 900px / 768px / 600px are scattered next to the component they affect, not collected at the end), so edit the breakpoint block nearest the component you're changing.
-- `privacy.html` / `terms.html` — standalone pages with their own inline `<style>` block; they do not use `style.css`, so global style changes must be duplicated there if they should apply.
-- `images/` — static assets referenced by relative paths.
+- Pure HTML5 and CSS3
+- No JavaScript
+- No build step
+- No framework
 
-## Deployment Proof Rule (from README)
+## Commands
 
-Students must keep the original footer credit in `index.html` (`<p>Crafted with <span>cloud</span> excellence by Pravin Mishra</p>`) and add a visible "Deployed by" line with their cohort/name/group/week/date, e.g.:
+- terraform init
+- terraform plan
+- terraform apply
 
-```html
-<p><strong>Deployed by:</strong> DMI Cohort 2 | Rahul Sharma | Group 4 | Week 1 | 16-01-2026</p>
-```
+## Conventions
 
-Don't remove or alter the original credit line.
+- All infrastructure changes go through Terraform — never modify AWS resources manually
+- No JavaScript in this project
+- CSS uses mobile-first approach with breakpoints at 900px, 768px, and 600px
 
-## Deployment Notes
+## Safety
 
-When deploying to S3 (or any web root), sync only site files — exclude `.git/`, `.github/`, `.claude/`, `.sf/`, `terraform/`, `*.md`, and `.mcp.json` so repo tooling and docs aren't published.
+Never put secrets in this file. No API keys, passwords, or AWS credentials.
